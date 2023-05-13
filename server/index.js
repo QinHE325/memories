@@ -13,7 +13,7 @@ app.use(cors());
 
 app.use('/posts', postRoutes);
 
-const CONNECTION_URL = 'mongodb+srv://helium_admin:2023NEU123@cluster0.1q8bl.mongodb.net/?retryWrites=true&w=majority';
+const CONNECTION_URL = 'mongodb+srv://memories_db_admin:2023NEU@cluster0.1q8bl.mongodb.net/?retryWrites=true&w=majority';
 const PORT = process.env.PORT|| 5001;
 
 mongoose.connect(CONNECTION_URL, { useNewUrlParser: true, useUnifiedTopology: true })
