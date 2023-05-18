@@ -12,6 +12,7 @@ import useStyles from './styles';
 import { deletePost, likePost } from "../../../actions/posts";
 
 const Post = ({ post, setCurrentId }) => {
+   console.log(post);
     const classes = useStyles();
     const dispatch = useDispatch();
     return (
@@ -32,7 +33,7 @@ const Post = ({ post, setCurrentId }) => {
           <Typography variant="body2" color="textSecondary" component="p">{post.message}</Typography>
         </CardContent>
         <CardActions className={classes.cardActions}>
-          <Button size="small" color="primary" onClick={() => {dispatch(likePost(post._id))}}><ThumbUpAltIcon fontSize="small" /> Like {post.likeCount} </Button>
+          <Button size="small" color="primary" onClick={() => {dispatch(likePost(post._id))}}><ThumbUpAltIcon fontSize="small" /> Like &nbsp; {post.likeCount} </Button>
           <Button size="small" color="primary" onClick={() => {dispatch(deletePost(post._id))}}><DeleteIcon fontSize="small" /> Delete</Button>
         </CardActions>
       </Card>
