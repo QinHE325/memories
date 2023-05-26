@@ -9,11 +9,14 @@ import jwt_decode from "jwt-decode";
 import Input from './Input';
 import Icon from './Icon';
 import useStyles from './styles';
+import { signin, signup } from '../../actions/auth';
 import { AUTH } from '../../constants/actionTypes';
 
+const initialState = { firstName: '', lastName: '', email: '', password: '', confirmPassword: ''};
 export const Auth = () => {
     const classes = useStyles();
     const [isSignup, setIsSignup] = useState(false);
+    const [formData, setFormData] = useState(initialState);
     const [showPassword, setShowPassword] = useState(false);
     const dispatch = useDispatch();
     const history = useHistory();
@@ -25,8 +28,19 @@ export const Auth = () => {
     };
     
 
-    const handleSubmit = () => {};
-    const handleChange = () => {};
+    const handleSubmit = (e) => {
+        e.preventDefault();
+        
+        if (isSignup){
+            dispatch(signup(formData, history));
+        } else {
+            dispatch(signin(formData, history));
+        }
+    };
+
+    const handleChange = (e) => {
+        setFormData({ ...formData, [e.target.name]: e.target.value });
+    };
 
     const googleSuccess = async(res) => {
         const token = res?.credential;

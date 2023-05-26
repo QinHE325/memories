@@ -5,8 +5,6 @@ export const getPosts = async (req, res) => {
     try {
         const postMessages = await PostMessage.find();
 
-        console.log(postMessages);
-
         res.status(200).json(postMessages);
     } catch (error) {
         res.status(404).json({ message: error.message });
@@ -53,10 +51,22 @@ export const deletePost = async(req, res) => {
 export const likePost = async(req, res) => {
     const { id } = req.params;
 
+    if (!req.userId) {
+        return res.json({ message: "Unauthenticated" });
+    }
+
     if (!mongoose.Types.ObjectId.isValid(id)) return res.status(404).send(`No post with id: ${id}`);
 
     const post = await PostMessage.findById(id);
-    const updatedPost = await PostMessage.findByIdAndUpdate(id, { likeCount: post.likeCount + 1 }, { new: true });
+    const index = post.likes.findIndex((id) => id === String(req.userId));
+
+    if (index === -1) {
+        post.likes.push(req.userId);
+    } else {
+        post.likes = post.likes.filter((id) => id !== String(req.userId));
+    }
+
+    const updatedPost = await PostMessage.findByIdAndUpdate(id, post, { new: true });
 
     res.json(updatedPost);
 
