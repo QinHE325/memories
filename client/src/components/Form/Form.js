@@ -4,7 +4,7 @@ import FileBase from 'react-file-base64';
 import { useDispatch, useSelector } from 'react-redux';
 
 import useStyles from './styles';
-import { createPost, updatePost } from "../../actions/posts";
+import { getPosts ,createPost, updatePost } from "../../actions/posts";
 
 const Form = ({currentId, setCurrentId}) => {
     const [postData, setPostData] = useState({
@@ -28,6 +28,7 @@ const Form = ({currentId, setCurrentId}) => {
             dispatch(createPost({ ...postData, name: user?.result?.name }));
         }
         clear();
+        dispatch(getPosts());
 
     }
 

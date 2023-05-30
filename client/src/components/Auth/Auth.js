@@ -55,8 +55,7 @@ export const Auth = () => {
 
     };
     const googleFailure = (error) => {
-        console.log(error);
-        console.log("Google Sign was unsuccessful. Try again later");
+        alert("Google Sign was unsuccessful. Try again later");
     };
 
 
