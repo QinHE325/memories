@@ -45,7 +45,6 @@ export const Auth = () => {
     const googleSuccess = async(res) => {
         const token = res?.credential;
         const result = jwt_decode(token);
-        console.log(res);
         try {
             dispatch({ type: AUTH, data: { result, token } });
             history.push('/');

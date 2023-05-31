@@ -4,7 +4,7 @@ import { useDispatch } from 'react-redux';
 import { useHistory, useLocation } from 'react-router-dom';
 import ChipInput from 'material-ui-chip-input';
 
-import { getPosts } from '../../actions/posts';
+import { getPosts, getPostsBySearch } from '../../actions/posts';
 import Posts from '../Posts/Posts';
 import Form from '../Form/Form';
 import useStyles from './styles';
@@ -23,7 +23,7 @@ const Home = () => {
   const page = query.get('page') || 1;
   const searchQuery = query.get('searchQuery');
   const [search, setSearch] = useState('');
-  const [tags, setTags] = useState('');
+  const [tags, setTags] = useState([]);
 
   useEffect(() => {
     dispatch(getPosts());
@@ -32,6 +32,7 @@ const Home = () => {
   const searchPost = () => {
     if (search.trim() || tags){
       // TODO fetch search posts
+      dispatch(getPostsBySearch({search, tags: tags.join(',') }));
     }else{
       history.push('/');
     }
